@@ -1,0 +1,1 @@
+QUESTIONS = ["Which path component is attacker controlled?", "Does it reach a filesystem operation?", "Can traversal or absolute-path semantics survive?", "Is the result canonicalized and constrained to an allowed base?", "Is the value replaced by a constant before the sink?"]

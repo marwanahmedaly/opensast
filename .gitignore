@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+runs/*
+!runs/.gitkeep
+reports/*
+!reports/.gitkeep
+tools/
+benchmarks/owasp-python/repository/
+benchmarks/realvuln/repository/
+benchmarks/runs/
+
+# Downloaded evaluation checkouts and local runtime artifacts
+benchmarks/**/repos/
+.env
+.env.*
+!.env.example
+.opensast/
+*.gguf
+*.safetensors
+*.sqlite
+*.sqlite3
+*.db
+legacy-agent/untracked-files.tar.gz
+
+# Generated local release packages
+/dist/

@@ -1,0 +1,15 @@
+{
+  "version": "2.1.0",
+  "runs": [{
+    "tool": {"driver": {"name": "CodeQL", "rules": [{"id": "py/sql-injection", "name": "SQL injection", "properties": {"tags": ["external/cwe/cwe-89"]}}]}},
+    "results": [{
+      "ruleId": "py/sql-injection",
+      "message": {"text": "SQL injection"},
+      "locations": [{"physicalLocation": {"artifactLocation": {"uri": "vulnerable.py"}, "region": {"startLine": 4}}}],
+      "codeFlows": [{"threadFlows": [{"locations": [
+        {"location": {"physicalLocation": {"artifactLocation": {"uri": "vulnerable.py"}, "region": {"startLine": 2}}}},
+        {"location": {"physicalLocation": {"artifactLocation": {"uri": "vulnerable.py"}, "region": {"startLine": 4}}}}
+      ]}]}]
+    }]
+  }]
+}

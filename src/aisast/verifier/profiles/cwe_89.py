@@ -1,0 +1,1 @@
+QUESTIONS = ["What value is attacker controlled?", "Where does it originate?", "Does it reach the database operation?", "Is SQL dynamically constructed?", "Are parameterized queries used?", "Is input only a bound parameter?"]

@@ -1,0 +1,1 @@
+QUESTIONS = ["What input is attacker controlled?", "Does it reach HTML output?", "Which HTML context receives it?", "Is context-appropriate escaping or framework autoescape present?", "Is safe/Markup used?"]

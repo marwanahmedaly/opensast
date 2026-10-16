@@ -1,0 +1,24 @@
+extensions:
+  - addsTo:
+      pack: codeql/python-all
+      extensible: sinkModel
+    data:
+      - ["flask", "Member[Response].Argument[0,response:]", "html-injection"]
+      - ["flask", "Member[make_response].Argument[0]", "html-injection"]
+      - ["flask", "Member[Flask].Instance.Member[make_response].Argument[0]", "html-injection"]
+      - ["starlette.responses", "Member[HTMLResponse].Argument[0,content:]", "html-injection"]
+      - ["fastapi.responses", "Member[HTMLResponse].Argument[0,content:]", "html-injection"]
+      - ["django.http", "Member[HttpResponse].Argument[0,content:]", "html-injection"]
+      - ["sanic.response", "Member[html].Argument[0,body:]", "html-injection"]
+  - addsTo:
+      pack: codeql/python-all
+      extensible: summaryModel
+    data:
+      - ["flask", "Member[make_response]", "Argument[0]", "ReturnValue", "taint"]
+      - ["flask", "Member[Response]", "Argument[0,response:]", "ReturnValue", "taint"]
+  - addsTo:
+      pack: codeql/python-all
+      extensible: barrierModel
+    data:
+      - ["html", "Member[escape].ReturnValue", "html-injection"]
+      - ["markupsafe", "Member[escape].ReturnValue", "html-injection"]

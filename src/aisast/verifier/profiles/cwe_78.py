@@ -1,0 +1,1 @@
+QUESTIONS = ["What part of the command is attacker controlled?", "Does it reach process execution?", "Is shell interpretation enabled?", "Is attacker data a separate argument?", "Is an allowlist enforced?"]

@@ -1,0 +1,10 @@
+{
+  "origin": "https://github.com/vinsoc-cyber/VulnHunterX",
+  "local_archived_revision": "8fc4a2466932c77702b9e378904ba89f4aff482e",
+  "note": "Archived local revision is not available from upstream. Files are bundled byte for byte from the already evaluated checkout, with original notices and LGPL-2.1 license.",
+  "files": {
+    "python_questions.yaml": "1e712444657c3bcc479e65d2c812efdcfbf5a266069b9e8bf87495225312dac3",
+    "rule_categories.yaml": "9e766a14d5356b0ad5e44b10122df3d56a568548ea9d5767a8f8345f75f02ef3",
+    "LICENSE": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+  }
+}
