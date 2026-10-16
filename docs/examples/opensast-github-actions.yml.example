@@ -1,0 +1,42 @@
+# Copy to .github/workflows/opensast.yml in the target Python repository.
+# Provision the trusted CLI, CodeQL packs and local model on an isolated company
+# runner first. Do not install the scanned repository or run its setup scripts.
+name: OpenSAST
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: opensast-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  scan:
+    # This example deliberately excludes fork PRs from the internal runner.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: [self-hosted, linux, opensast]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Scan with trusted OpenSAST
+        # Replace the placeholder with a reviewed commit containing the merged action.
+        # For a private OpenSAST repository, configure organization action access.
+        uses: marwanahmedaly/opensast/.github/actions/opensast@REPLACE_WITH_REVIEWED_COMMIT_SHA
+        with:
+          executable: /opt/opensast/bin/opensast
+          project-key: ${{ github.repository }}
+          base: ${{ github.event.pull_request.base.sha || '' }}
+          state: /var/lib/opensast/ci
+          output: ${{ runner.temp }}/opensast-${{ github.run_id }}-${{ github.run_attempt }}/report.json
+          codeql: /opt/codeql/codeql
+          query-search-path: /opt/codeql/packages
+          endpoint: http://127.0.0.1:8000/v1
+          model: qwen3-coder
+          model-revision: REPLACE_WITH_WEIGHT_SHA256
+          fail-on: new
+      # No actions/cache or upload-artifact: full source/evidence remain internal.

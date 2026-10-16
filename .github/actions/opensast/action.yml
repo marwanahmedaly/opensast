@@ -1,0 +1,83 @@
+name: OpenSAST local-first scan
+description: Full Python static analysis with cached verification and Git baseline comparison on a company runner
+inputs:
+  executable:
+    description: Absolute path to the preinstalled trusted OpenSAST executable
+    default: /opt/opensast/bin/opensast
+  project-key:
+    description: Stable repository identifier
+    required: true
+  base:
+    description: Optional PR target commit; its merge-base is the comparison baseline
+    default: ''
+  state:
+    description: Persistent private cache outside the checked-out repository
+    required: true
+  output:
+    description: Private JSON report outside the checkout
+    required: true
+  codeql:
+    description: Absolute path to preinstalled CodeQL
+    required: true
+  query-search-path:
+    description: Preinstalled CodeQL pack directory
+    required: true
+  endpoint:
+    description: Internal OpenAI-compatible inference endpoint
+    required: true
+  model:
+    description: Model name
+    required: true
+  model-revision:
+    description: Immutable model revision or weights digest
+    required: true
+  allow-model-host:
+    description: Optional explicitly allowed internal inference hostname
+    default: ''
+  fail-on:
+    description: 'new (fail on new alerts) or none (report only); unresolved results always fail'
+    default: new
+outputs:
+  report:
+    description: Path to the full report on the company runner
+    value: ${{ steps.scan.outputs.report }}
+  exit-code:
+    description: '0 completed, 1 new alerts or execution failure, 2 incomplete verification'
+    value: ${{ steps.scan.outputs.exit-code }}
+runs:
+  using: composite
+  steps:
+    - id: scan
+      shell: bash
+      env:
+        OPENSAST_EXECUTABLE: ${{ inputs.executable }}
+        OPENSAST_PROJECT: ${{ inputs.project-key }}
+        OPENSAST_BASE: ${{ inputs.base }}
+        OPENSAST_STATE: ${{ inputs.state }}
+        OPENSAST_OUTPUT: ${{ inputs.output }}
+        OPENSAST_CODEQL: ${{ inputs.codeql }}
+        OPENSAST_PACKS: ${{ inputs.query-search-path }}
+        OPENSAST_ENDPOINT: ${{ inputs.endpoint }}
+        OPENSAST_MODEL: ${{ inputs.model }}
+        OPENSAST_REVISION: ${{ inputs.model-revision }}
+        OPENSAST_MODEL_HOST: ${{ inputs.allow-model-host }}
+        OPENSAST_FAIL_ON: ${{ inputs.fail-on }}
+      run: |
+        [[ "$OPENSAST_EXECUTABLE" = /* ]] || { echo "OpenSAST executable must be an absolute trusted path" >&2; exit 1; }
+        arguments=(ci --project-key "$OPENSAST_PROJECT" --state "$OPENSAST_STATE"
+          --output "$OPENSAST_OUTPUT" --codeql "$OPENSAST_CODEQL"
+          --query-search-path "$OPENSAST_PACKS" --endpoint "$OPENSAST_ENDPOINT"
+          --model "$OPENSAST_MODEL" --model-revision "$OPENSAST_REVISION"
+          --fail-on "$OPENSAST_FAIL_ON")
+        if [[ -n "$OPENSAST_BASE" ]]; then arguments+=(--base "$OPENSAST_BASE"); fi
+        if [[ -n "$OPENSAST_MODEL_HOST" ]]; then arguments+=(--allow-model-host "$OPENSAST_MODEL_HOST"); fi
+        # Source/evidence stay local. Print only status in Actions logs.
+        umask 077
+        mkdir -p "$(dirname "$OPENSAST_OUTPUT")"
+        set +e
+        "$OPENSAST_EXECUTABLE" "${arguments[@]}" > "$OPENSAST_OUTPUT.console.log" 2>&1
+        status=$?
+        set -e
+        printf 'report=%s\nexit-code=%s\n' "$OPENSAST_OUTPUT" "$status" >> "$GITHUB_OUTPUT"
+        printf 'OpenSAST completed with exit code %s. Detailed report remains on the company runner.\n' "$status"
+        exit "$status"
