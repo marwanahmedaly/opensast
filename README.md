@@ -8,6 +8,8 @@ Run the scanner, dashboard, workers, and inference on your own machine or inside
 
 [Install](#installation) · [Scan a project](#scan-your-first-project) · [How it works](#how-it-works) · [GitHub Actions](#github-actions-and-cicd) · [Documentation](#documentation)
 
+For more information, including the research journey, evaluation results, report, and presentation, visit the **[OpenSAST project website](https://marwanahmedaly.github.io/opensast-website/)**.
+
 ## What OpenSAST provides
 
 - **Detection:** stock CodeQL Python queries, an active profile of **35 custom queries**, and a template companion generate suspected findings.
