@@ -14,4 +14,14 @@ No model weights, user credentials, dashboard databases or private scan outputs 
 
 ## Supported patterns
 
-The tool targets the four CWEs listed in the README. Python and framework handling depends on the recognized code pattern; the presence of a Flask, Django, FastAPI, Starlette, Jinja2 or SQLAlchemy import does not establish complete support for that framework or all versions.
+The tool targets the four CWEs listed in the README. Support concerns specific code patterns, rather than every behavior of a framework.
+
+| Technology or mechanism | Support boundary |
+|---|---|
+| Native Python file, process, SQL, and generated HTML operations | Primary patterns; coverage remains partial. |
+| Flask input, routing, and response behavior | Primary selected patterns; not all Flask applications or versions. |
+| Jinja2, SQLAlchemy, and Django | Partial, pattern-dependent coverage; validate the particular integration. |
+| FastAPI/Starlette and Django REST Framework | Exploratory integrations; not established primary coverage. |
+| Other integrations or unknown versions | Require separate evidence; an unrelated framework import does not invalidate a native Python mechanism. |
+
+This matches the report's Table 4.2. Historical evaluations retain their recorded scope and configurations; these boundaries do not retrospectively exclude missed cases or improve scores. An import alone is not evidence of complete support.

@@ -2,7 +2,7 @@
 
 ```mermaid
 flowchart LR
-    A[Python repository] --> B[CodeQL and active custom queries]
+    A[Python repository] --> B[CodeQL, custom queries and template companion]
     B --> C[Normalize and combine suspected findings]
     C --> D[Collect referenced Python code evidence]
     D --> E[LLM verification]

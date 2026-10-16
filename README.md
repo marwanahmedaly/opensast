@@ -32,7 +32,7 @@ For more information, including the research journey, evaluation results, report
 
 These operations generate **suspects**, not proof of exploitation. Verification must consider attacker control, sanitization, configuration, and the actual execution path.
 
-OpenSAST targets native Python and recognized patterns in frameworks and libraries such as Flask, Django, FastAPI, Starlette, Jinja2, and SQLAlchemy. An import alone does not imply complete framework support. This is not coverage of the entire OWASP Top 10, and no scan guarantees that a repository is vulnerability-free.
+Primary evaluated patterns are native Python mechanisms and selected Flask input/response behavior. Jinja2, SQLAlchemy, and Django coverage is partial and pattern-dependent; FastAPI/Starlette and Django REST Framework integrations remain exploratory. An import alone does not imply complete framework support. See the [support boundaries](docs/configuration.md#supported-patterns). This is not coverage of the entire OWASP Top 10, and no scan guarantees that a repository is vulnerability-free.
 
 ## How it works
 
@@ -210,7 +210,7 @@ See the [complete Actions guide](docs/github-actions.md) and [example workflow](
 | [Configuration](docs/configuration.md) | Query profile, model/evidence policy, supported patterns |
 | [Contributing](CONTRIBUTING.md) | Development and contribution guidance |
 
-The [academic project website](https://marwanahmedaly.github.io/opensast-website/) provides the research overview and evaluation context. Benchmark results describe their particular datasets, revisions, and settings; they are not a guarantee for new repositories.
+The [academic project website](https://marwanahmedaly.github.io/opensast-website/) provides the research overview and evaluation context, including the [final report](https://drive.google.com/file/d/1hhNG6HU7Aa3Z5_3LBudpV9SnH3_EqK_i/view), [presentation](https://docs.google.com/presentation/d/1rBd8PrAxw52E2QHSfeiTVEfaaAH_tE2KkPV5pimKUz8), and [illustrated dashboard walkthrough](https://marwanahmedaly.github.io/opensast-website/docs-dashboard.html). Benchmark results describe their particular datasets, revisions, and settings; they are not a guarantee for new repositories.
 
 ## Limitations
 

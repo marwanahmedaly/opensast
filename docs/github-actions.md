@@ -86,8 +86,8 @@ does not establish the absence of vulnerabilities. Detector-layer gaps remain.
 ## Company-local GitHub Actions
 
 Use the [workflow template](examples/opensast-github-actions.yml.example) and
-[composite action](../.github/actions/opensast/action.yml). After the action is merged into the main repository, replace
-`REPLACE_WITH_REVIEWED_COMMIT_SHA` with a reviewed commit containing the action.
+[composite action](../.github/actions/opensast/action.yml). The example pins the public merged Action at
+`2175c1ac26fe4100d822891c4b7488df598e54a8`. Review that revision for your deployment.
 Configure runner paths and model digest before enabling the workflow. The example
 is not active until you copy it into the target repository's workflows directory.
 
@@ -102,8 +102,7 @@ runner access policies must determine which internal contributors may run jobs.
 Source snapshots, prompts, verdict caches and detailed reports stay on the runner.
 The action prints only an exit status to GitHub logs. It does not upload reports,
 use GitHub cache storage, or contact external inference. GitHub still receives
-workflow/check status. A private OpenSAST action requires repository/organization
-access configuration. This is an Actions integration, not an offline substitute
+workflow/check status. The OpenSAST action is publicly accessible. This is an Actions integration, not an offline substitute
 for GitHub itself.
 
 GitHub caches reside in GitHub-owned storage even for self-hosted runners, so they
