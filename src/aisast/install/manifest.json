@@ -1,0 +1,41 @@
+{
+  "codeql_version": "2.27.1",
+  "python_queries_version": "1.8.11",
+  "python_all_version": "7.2.6",
+  "codeql_terms": "https://github.com/github/codeql-cli-binaries/blob/main/LICENSE.md",
+  "codeql": {
+    "url": "https://github.com/github/codeql-action/releases/download/codeql-bundle-v2.27.1/codeql-bundle-python-linux64.tar.zst",
+    "sha256": "ea86393c6c812542ae5a3a7122bcc760873707a50b25cc47d2fd7cfd514b0cb0",
+    "bytes": 111165259,
+    "filename": "codeql-bundle-python-linux64.tar.zst"
+  },
+  "llama_version": "b11070",
+  "llama_cpu": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11070/llama-b11070-bin-ubuntu-x64.tar.gz",
+    "sha256": "dc1b0479392ffd35733f9271da3617ef1ba9cdc7a0273ae35b1696bc58ccb704",
+    "bytes": 16886306,
+    "filename": "llama-b11070-bin-ubuntu-x64.tar.gz"
+  },
+  "llama_cuda": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11070/llama-b11070-bin-ubuntu-cuda-12.8-x64.tar.gz",
+    "sha256": "ced19e62c9ced5bf626426a4d69022289cb7c1c0535d420f2988e0b41c44f34f",
+    "bytes": 168807150,
+    "filename": "llama-b11070-bin-ubuntu-cuda-12.8-x64.tar.gz"
+  },
+  "llama_cuda_runtime": {
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11070/cudart-llama-b11070-bin-ubuntu-cuda-12.8-x64.tar.gz",
+    "sha256": "8a3a5d19721cbb5cfef58a28eb197d39ffc19a8cbf8a9a9927ecbff36d5c5806",
+    "bytes": 594373579,
+    "filename": "cudart-llama-b11070-bin-ubuntu-cuda-12.8-x64.tar.gz"
+  },
+  "model": {
+    "url": "https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/b17cb02dd882d5b6ab62fc777ad2995f19668350/Qwen3-Coder-30B-A3B-Instruct-Q4_0.gguf",
+    "sha256": "cf9ea0572e8759348ef7f8cd899fbfecba5110929fc1aa620d18bb6d91e62700",
+    "bytes": 17379990688,
+    "filename": "Qwen3-Coder-30B-A3B-Instruct-Q4_0.gguf",
+    "model_id": "Qwen3-Coder-30B-A3B-Instruct-Q4_0",
+    "upstream_revision": "b17cb02dd882d5b6ab62fc777ad2995f19668350",
+    "license": "Apache-2.0",
+    "provenance": "The model download is pinned to the upstream revision and SHA-256 recorded in this manifest."
+  }
+}
