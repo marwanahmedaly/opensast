@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#11171d">
+  <title>OpenSAST · Security workspace</title>
+  <link rel="stylesheet" href="/assets/style.css?v=20261016-session1">
+  <script src="/assets/app.js?v=20261016-session1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="app-header">
+    <div class="brand"><strong><span class="brand-mark" aria-hidden="true">[↗]</span>OpenSAST</strong><span class="badge">Self-hosted</span></div>
+    <div class="account"><div id="identity"></div><button id="password" hidden>Change password</button><button id="logout" hidden>Log out</button></div>
+  </header>
+  <main id="main">
+    <div id="message" role="status" aria-live="polite"></div>
+    <section id="session-loading" class="session-loading" aria-labelledby="session-title">
+      <span class="eyebrow">OpenSAST workspace</span>
+      <h1 id="session-title">Opening your workspace…</h1>
+      <p id="session-copy" role="status">Checking your session.</p>
+      <div class="session-indicator" aria-hidden="true"></div>
+      <button id="session-retry" type="button" hidden>Try again</button>
+    </section>
+    <section id="login-panel" aria-labelledby="login-title" hidden>
+      <div class="login-intro">
+        <p class="eyebrow">Local-first · AI-assisted SAST</p>
+        <h1 id="login-title">Your projects.<br>Inside your network.</h1>
+        <p class="login-lead">Sign in to review Python security findings and manage scans.</p>
+        <div class="pipeline" aria-label="Analysis pipeline">
+          <div><span class="step-index">01</span><span><strong>Detect</strong><small>CodeQL suspected findings</small></span></div>
+          <div><span class="step-index">02</span><span><strong>Collect</strong><small>Referenced code evidence</small></span></div>
+          <div><span class="step-index">03</span><span><strong>Review</strong><small>Local LLM verification</small></span></div>
+        </div>
+        <p class="login-footnote">Python · CWE-22 / 78 / 79 / 89</p>
+      </div>
+      <div class="login-card">
+        <span class="eyebrow">Workspace access</span>
+        <h2>Sign in</h2>
+        <form id="login-form">
+          <label>Username<input name="username" autocomplete="username" required></label>
+          <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+          <button>Sign in <span aria-hidden="true">↗</span></button>
+        </form>
+        <p class="hint">Use the account provisioned for your OpenSAST installation.</p>
+      </div>
+    </section>
+    <nav id="breadcrumbs" class="breadcrumbs" aria-label="Breadcrumb" hidden></nav>
+    <div id="application" hidden>
+      <section class="toolbar" aria-label="Workspace controls">
+        <label>Workspace<select id="workspace"></select></label>
+        <div class="toolbar-actions"><button id="new-workspace">New workspace</button><button id="members">Members</button><button id="audit">Audit log</button><button id="refresh">Refresh</button></div>
+      </section>
+      <div class="layout">
+        <aside class="project-sidebar" aria-label="Projects">
+          <div class="section-heading"><h2>Projects</h2><button id="new-project">Add</button></div>
+          <div id="projects"></div>
+          <p class="hint sidebar-hint">Register a local checkout with <code>opensast init</code>.</p>
+          <div class="sidebar-note"><span class="eyebrow">Local by design</span><p>Your repositories and scan evidence stay on your infrastructure.</p></div>
+        </aside>
+        <article>
+          <section id="project-panel" hidden>
+            <div class="project-overview">
+              <p class="eyebrow">Repository analysis</p>
+              <h1 id="project-name"></h1>
+              <p id="worker-state"></p>
+              <div id="worker-help" class="notice warning" hidden><strong>Connect a worker to run scans</strong><p>From the registered project directory, run <code>opensast worker</code>. Keep it running while scans are queued. If scanner settings are missing, run <code>opensast setup</code> first.</p></div>
+              <div class="actions"><button id="scan">Scan changes</button><button id="full-scan" title="Rerun repository analysis and AI review without reusing previous decisions">Full scan</button><button id="worker-token">Rotate worker credential</button></div>
+              <p class="hint">Scan changes reuses valid decisions. The first scan is full; later full scans rerun analysis and AI review. CodeQL analyzes repository-wide flows when files change.</p>
+            </div>
+            <section id="project-summary" aria-label="Project scan summary"></section>
+            <div id="scan-notice" hidden></div>
+            <section id="scan-progress" class="scan-progress" aria-label="Current scan progress" hidden></section>
+            <div class="section-heading scan-heading"><h2>Scan history</h2><span class="section-caption">Execution &amp; verification</span></div>
+            <div id="jobs"></div>
+
+          </section>
+            <section id="results" hidden>
+              <div class="result-page-header">
+                <a id="back-to-project" class="back-link" href="/">← Back to scan history</a>
+                <p class="eyebrow">Scan report</p>
+                <h1 id="result-page-title">Scan results</h1>
+                <p id="result-project-name"></p>
+                <p id="result-scan-meta" class="hint"></p>
+              </div>
+              <div class="section-heading"><h2>Findings</h2><a id="export" class="export-link" href="#">Export JSON <span aria-hidden="true">↗</span></a></div>
+              <div id="summary"></div>
+              <div id="result-controls" class="result-controls">
+                <label class="search-filter">Search findings<input id="finding-search" type="search" placeholder="File, CWE, rule or explanation" autocomplete="off"></label>
+                <label>AI decision<select id="verdict"><option value="">All decisions</option><option value="flagged">Flagged by AI</option><option value="not_flagged">Dismissed by AI</option><option value="needs_review">Needs review</option></select></label>
+                <label>Human review<select id="review-filter"><option value="">All review states</option><option value="open">Open</option><option value="confirmed">Confirmed</option><option value="dismissed">Dismissed</option></select></label>
+                <button id="clear-filters" type="button">Clear filters</button>
+                <p id="finding-count" class="hint" role="status"></p>
+              </div>
+              <div id="findings"></div>
+            </section>
+          <section id="finding-page" hidden>
+            <div class="result-page-header">
+              <a id="back-to-results" class="back-link" href="/">← Back to scan results</a>
+              <p class="eyebrow">Finding review</p>
+              <h1 id="finding-title"></h1>
+              <p id="finding-subtitle"></p>
+            </div>
+            <nav id="finding-navigation" class="finding-navigation" aria-label="Finding navigation"></nav>
+            <div id="finding-detail"></div>
+          </section>
+          <section id="empty" class="empty-state"><span class="empty-mark" aria-hidden="true">[↗]</span><p class="eyebrow">Your security workspace</p><h1 id="empty-title">Select a project</h1><p id="empty-copy">Your accessible projects appear on the left.</p><button id="empty-add" type="button" hidden>Add a project</button></section>
+          <section id="management" hidden></section>
+        </article>
+      </div>
+    </div>
+  </main>
+  <dialog id="editor"><form id="editor-form"><h2 id="editor-title"></h2><div id="editor-fields"></div><div class="actions"><button type="button" id="editor-cancel">Cancel</button><button type="submit">Save</button></div></form></dialog>
+  <dialog id="secret"><h2>Project worker credential</h2><p>Copy it to the registered worker machine using <code>opensast worker-token --import</code>. Rotation revokes the previous credential.</p><textarea id="secret-value" readonly rows="4" aria-label="Project worker credential"></textarea><button id="secret-close">Close</button></dialog>
+  <footer><span>OpenSAST <span class="footer-dot" aria-hidden="true">/</span> Local-first Python analysis</span><span>CWE-22 · CWE-78 · CWE-79 · CWE-89 <span class="footer-dot" aria-hidden="true">/</span> No external assets or telemetry</span></footer>
+</body>
+</html>
