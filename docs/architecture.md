@@ -25,4 +25,4 @@ The verifier sends selected evidence to an OpenAI-compatible inference endpoint.
 
 ## Shared product scanning
 
-The shared product scanner records source and analysis identities. It can reuse eligible verification decisions when code evidence, configuration and model identity permit reuse. CodeQL still analyzes repository-wide flows when scanning changed snapshots; incremental verification is not a claim that cross-file analysis is limited to edited files. The dashboard, worker and CI modules use this shared infrastructure after their integration.
+The shared product scanner records source and analysis identities. It can reuse eligible verification decisions when code evidence, configuration and model identity permit reuse. CodeQL still analyzes repository-wide flows when scanning changed snapshots; incremental verification is not a claim that cross-file analysis is limited to edited files. The dashboard, worker and CI modules use this shared infrastructure in the integrated product.

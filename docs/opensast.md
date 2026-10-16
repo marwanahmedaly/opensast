@@ -1,6 +1,6 @@
 # OpenSAST: local CLI and dashboard
 
-These instructions apply after the dashboard and CLI components are merged into the main OpenSAST repository.
+These instructions describe the integrated scanner, dashboard, API, worker, and CLI in the main OpenSAST repository.
 
 Git-aware local/PR scans and the company-runner Actions integration are described
 in [GitHub Actions](github-actions.md). Use `opensast ci` for a standalone pipeline
@@ -29,7 +29,7 @@ The wizard packages the current query assets, provisions pinned CodeQL/Python
 packs, offers local GGUF or internal inference, creates the first account and
 starts the dashboard. `opensast init` can then provision and start a project
 worker from saved settings. Use `opensast doctor`, `start`, `stop` and `restart`
-for the managed installation. Repository access is required while the main source remains private.
+for the managed installation.
 
 See [the installation guide](installation.md) for requirements, hashes, offline
 installation, mirrors, upgrade/rollback behavior and publication status.

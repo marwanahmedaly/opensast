@@ -24,9 +24,8 @@ jobs:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Scan with trusted OpenSAST
-        # Replace the placeholder with a reviewed commit containing the merged action.
-        # For a private OpenSAST repository, configure organization action access.
-        uses: marwanahmedaly/opensast/.github/actions/opensast@REPLACE_WITH_REVIEWED_COMMIT_SHA
+        # Pin the action to a reviewed integration commit.
+        uses: marwanahmedaly/opensast/.github/actions/opensast@2175c1ac26fe4100d822891c4b7488df598e54a8
         with:
           executable: /opt/opensast/bin/opensast
           project-key: ${{ github.repository }}

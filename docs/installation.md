@@ -1,6 +1,6 @@
 # Install OpenSAST
 
-These instructions apply to the main OpenSAST repository after the CLI and dashboard components are merged. This component repository is not independently installable.
+The main repository includes the scanner, CLI, installer, dashboard, API, worker, and GitHub Action.
 
 ## 1. Get the integrated source
 
@@ -9,7 +9,7 @@ git clone https://github.com/marwanahmedaly/opensast.git
 cd opensast
 ```
 
-Repository access is required while the source is private. Git and Python must already be available.
+Git and Python must already be available.
 
 ## 2. Start the installer
 
@@ -19,14 +19,15 @@ bash scripts/install.sh
 
 The installer creates an isolated Python environment and starts the setup wizard. It does not require sudo. To use a reviewed release, select its tag or branch with `--ref RELEASE_TAG_OR_BRANCH` when installing remotely. The default `main` follows source updates and is not an immutable release pin.
 
-For remote distribution after the installer is available in the main repository, download and inspect its script before running it. While the repository is private, an authenticated GitHub CLI can retrieve it:
+For installation without cloning first:
 
 ```bash
-gh api repos/marwanahmedaly/opensast/contents/scripts/install.sh -H 'Accept: application/vnd.github.raw+json' > install.sh
+curl -fsSLo install.sh https://raw.githubusercontent.com/marwanahmedaly/opensast/main/scripts/install.sh
+# Inspect the downloaded script before executing it.
 bash install.sh
 ```
 
-The command needs repository access. A public raw-download URL will only work once the main repository is public.
+Use a reviewed commit or release reference instead of `main` when pinning an installation.
 
 ## 3. Check requirements and complete setup
 

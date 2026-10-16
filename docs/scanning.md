@@ -32,4 +32,4 @@ Runtime depends on repository size, candidate count, model and serving configura
 
 The output directory contains normalized candidates, evidence packets, a scan manifest, verifier attempt records, and final findings. Inspect unresolved results and execution errors before treating a scan as complete. Review the evidence behind a reported vulnerability.
 
-Use `aisast scan --help` for the complete command options. Product onboarding, dashboard and CI instructions will be supplied by their component PRs.
+Use `aisast scan --help` for the complete command options. For product onboarding and dashboard use, see [the product guide](opensast.md). For CI, see [GitHub Actions](github-actions.md).
