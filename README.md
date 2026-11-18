@@ -212,6 +212,36 @@ See the [complete Actions guide](docs/github-actions.md) and [example workflow](
 
 The [academic project website](https://marwanahmedaly.github.io/opensast-website/) provides the research overview and evaluation context, including the [final report](https://drive.google.com/file/d/1hhNG6HU7Aa3Z5_3LBudpV9SnH3_EqK_i/view), [presentation](https://docs.google.com/presentation/d/1rBd8PrAxw52E2QHSfeiTVEfaaAH_tE2KkPV5pimKUz8), and [illustrated dashboard walkthrough](https://marwanahmedaly.github.io/opensast-website/docs-dashboard.html). Benchmark results describe their particular datasets, revisions, and settings; they are not a guarantee for new repositories.
 
+## Repository layout
+
+```
+src/aisast/
+  codeql/        # CodeQL runner, query profile, SARIF parsing and normalization
+  context/       # Python index, relationships, framework/receiver/callback bindings, evidence builder
+  verifier/      # LLM client, prompts, token budgeting, decision contracts and policy
+  scanners/      # template and XSS companion scanners
+  fusion.py      # merging and deduplicating candidates with provenance
+  evaluation/    # benchmark, metrics, OWASP and RealVuln adapters, experiment runner
+  corpus/        # evaluation corpus models and I/O
+  install/       # guided setup, downloads, services
+  product/       # CLI, dashboard API, worker, incremental scans, Git changes, CI, SQLite store
+config/          # 35 custom CodeQL queries, XSS model pack, current query manifest
+docs/            # installation, product, scanning, architecture, configuration, GitHub Actions
+design-system/   # dashboard design tokens
+.github/actions/opensast/   # composite GitHub Action
+tests/           # 33 test files (171 test functions) and vulnerable fixtures for CWE-22/78/79/89
+scripts/install.sh
+```
+
+## Tests
+
+```bash
+python -m pip install -e '.[web,dev]'
+pytest
+```
+
+Product tests need the web extras. Do not treat a check as passing unless it was run against the revision you are using.
+
 ## Limitations
 
 - This is a research prototype targeting four Python vulnerability classes, not complete language/framework or OWASP coverage.
